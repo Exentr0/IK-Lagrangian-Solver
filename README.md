@@ -18,26 +18,6 @@ Two implementations are provided:
 
 ---
 
-## Methodology
-
-### Lagrangian Formulation
-
-The core of the IK solver is based on minimizing the following cost function:
-
-\[
-L = \sum_{i} (S_i - Q_i)^2 K_i + \lambda^T (G - FK(Q)) + \mu \cdot \text{barrier\_term}(Q)
-\]
-
-where:
-
-- **\( S_i \)**: Initial joint angle for joint *i*.  
-- **\( Q_i \)**: Current joint angle for joint *i*.  
-- **\( K_i \)**: Cost associated with moving joint *i* (user-specified).  
-- **\( G \)**: Desired target position in Cartesian space.  
-- **\( FK(Q) \)**: Forward kinematics function yielding the end-effector position given joint configuration *Q*.  
-- **\( \lambda \)**: Lagrange multipliers used to enforce the equality constraint (i.e., that the end-effector reaches *G*).  
-- **\( \mu \)**: Parameter for the barrier function that penalizes violations of joint limits (only in the constrained implementation).
-
 The algorithm applies gradient descent to iteratively update both the joint angles and the Lagrange multipliers until the end-effector error falls below a specified tolerance.
 
 ### Joint Limits Enforcement
